@@ -27,15 +27,18 @@ class _HomeState extends State<Home> {
   List<DataModel> chats = [];
 
   Future<void> getChats() async {
+    List<DataModel> placeHolder = [];
     var response = await http.get("https://jsonplaceholder.typicode.com/posts");
     var data = json.decode(response.body);
     for (var d in data) {
-      chats.add(DataModel(
+      placeHolder.add(DataModel(
         data: d['body'],
         id: d['id'],
       ));
-      print(chats.length);
     }
+    setState(() {
+      chats = placeHolder;
+    });
   }
 
   @override
